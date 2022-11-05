@@ -1,0 +1,19 @@
+Router>
+Router>en
+Router#
+Router#conf t
+Router(config)#interface gigabitEthernet 0/1
+Router(config-if)#no shutdown 
+Router(config-if)#ip address 10.10.10.1 255.255.255.252
+Router(config-if)#exit
+Router(config)#int gigabitEthernet 0/0
+Router(config-if)#no shutdown 
+Router(config-if)#ip address 11.11.11.1 255.255.255.252
+Router(config-if)#exit
+Router(config)#hostname R1
+R3(config)#router ospf 1
+R1(config-router)#network 11.11.11.0 0.0.0.3 area 0
+R1(config-router)#network 10.10.10.0 0.0.0.3 area 0
+
+Router#sh ip ospf neighbor
+Router#sh ip route

@@ -1,0 +1,24 @@
+Router>enable 
+Router#sh ip interface brief 
+Router#conf t
+Router(config)#interface fastEthernet 0/1
+Router(config-if)#no shutdown 
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#exit
+Router(config)#exit
+Router#
+%SYS-5-CONFIG_I: Configured from console by console
+
+Router#sh ip interface brief 
+Interface              IP-Address      OK? Method Status                Protocol
+ 
+FastEthernet0/0        unassigned      YES unset  administratively down down
+ 
+FastEthernet0/1        192.168.1.1     YES manual up                    down
+ 
+Vlan1                  unassigned      YES unset  administratively down down
+Router#
+
+R2(config)#username csl privilege 15 password csl
+R2(config)#line vty 0 4
+R2(config-line)#login local 

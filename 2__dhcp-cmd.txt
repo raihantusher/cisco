@@ -1,0 +1,32 @@
+Router>en
+Router#sh ip interface brief 
+Router#conf t
+Router(config)#interface fastEthernet 0/1
+Router(config-if)#no shutdown 
+Router(config-if)#ip address 10.10.10.1 255.255.255.0
+Router(config-if)#exit
+Router(config)#ip dhcp excluded-address 10.10.10.1 10.10.10.10
+Router(config)#ip dhcp excluded-address 10.10.10.15
+Router(config)#ip dhcp pool LAN
+Router(dhcp-config)#network 10.10.10.0 255.255.255.0
+Router(dhcp-config)#default-router 10.10.10.1
+Router(dhcp-config)#dns-server 8.8.8.8
+Router(config)#username csl privilege 15 password csl
+Router(config)#line vty 0 4
+Router(config-line)#login local 
+Router(config-line)#transport input all
+Router(config)#ip domain-name csl.com
+Router(config)#hostname R1
+R1(config)#crypto key generate rsa 
+R1(config)#line vty 0 4
+R1(config-line)#transport input ssh
+R1(config)#ena
+R1(config)#enable pas
+R1(config)#enable password csl
+R1(config)#line con
+R1(config)#line console 0
+R1(config-line)#pas
+R1(config-line)#password csl
+R1(config)#no enable password
+R1(config)#enable secret csl
+

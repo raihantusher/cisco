@@ -1,0 +1,22 @@
+Router>
+Router>en
+Router(config)#interface gigabitEthernet 0/1
+Router(config-if)#no shutdown 
+Router(config-if)#ip address 10.10.10.1 255.255.255.252
+Router(config)#interface gigabitEthernet 0/0
+Router(config-if)#no shutdown 
+Router(config-if)#ip address 11.11.11.1 255.255.255.252
+Router(config-if)#exit
+Router(config)#interface loopback 1
+Router(config-if)#ip address 2.2.2.2 255.255.255.255
+Router(config-if)#exit
+Router(config)#router ospf 1
+Router(config-router)#network 11.11.11.0 0.0.0.3 area 0
+Router(config-router)#network 10.10.10.0 0.0.0.3 area 0
+Router(config-router)#network 2.2.2.2 0.0.0.0 area 0
+Router(config-router)#router-id 2.2.2.2
+Router(config-router)#exit
+Router(config)#ip route 0.0.0.0 0.0.0.0 103.12.1.1
+Router(config)#router ospf 1
+Router(config-router)#de
+Router(config-router)#default-information originate 
