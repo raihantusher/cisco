@@ -1,0 +1,22 @@
+Router>en
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface gigabitEthernet 0/2
+Router(config-if)#no shutdown 
+Router(config-if)#ip address 10.10.10.1 255.255.255.252
+Router(config-if)#exit
+Router(config)#interface gigabitEthernet 0/1
+Router(config-if)#no shutdown 
+Router(config-if)#ip address 11.11.11.1 255.255.255.252
+Router(config-if)#exit
+Router(config)#hostname R1
+R1(config)#router eigrp 100
+R1(config-router)#no auto-summary 
+R1(config-router)#network 10.10.10.0 0.0.0.3
+R1(config-router)#network 11.11.11.0 0.0.0.3
+
+
+R1(config-ip)#Show ip protocols
+R1(config-ip)#Show ip eigrp neighbors
+R1(config-ip)#Show ip route
+R1(config-ip)#Show ip eigrp topolgy
