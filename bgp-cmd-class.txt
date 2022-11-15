@@ -1,0 +1,16 @@
+Client(config)#router bgp 100
+Client(config-router)#neighbor 10.10.10.1 remote-as 101
+Client(config-router)#network 103.10.10.0 mask 255.255.255.0
+Client(config-router)#exit
+Client(config)#ip route  103.10.10.0 255.255.255.0 null 0 250
+Client(config)#ip route  103.10.10.0 255.255.255.248 10.20.20.2
+
+
+ISP(config)#router bgp 101
+ISP(config-router)#neighbor 10.10.10.2 remote-as 100
+
+
+Client Local Router
+Client Local Router(config)#ip route 0.0.0.0 0.0.0.0 10.20.20.1
+
+
