@@ -1,0 +1,28 @@
+**********For STATIC NAT**********************
+Router(config)#hostname Client-RT
+Client-RT(config)#interface gigabitEthernet 0/0
+Client-RT(config-if)#no shutdown
+Client-RT(config-if)#ip nat outside
+Client-RT(config-if)#ip address 103.10.10.2 255.255.255.248
+Client-RT(config-if)#exit
+Client-RT(config)#interface gigabitEthernet 0/1
+Client-RT(config-if)#no shutdown 
+Client-RT(config-if)#ip address 192.168.1.1 255.255.255.0
+Client-RT(config-if)#ip nat inside
+Client-RT(config-if)#exit
+Client-RT(config)#ip route 0.0.0.0 0.0.0.0 103.10.10.1
+Client-RT(config)#ip nat inside source static 192.168.1.2 103.10.10.2
+***************************************************
+
+**********For Dynamic NAT*******************************
+Client-RT(config)#ip nat pool WAN 103.10.10.2 103.10.10.6 netmask 255.255.255.248
+Client-RT(config)#access-list 1 permit 192.168.1.0 0.0.0.255
+Client-RT(config)#ip nat inside source list 1 pool WAN overload
+************************************************************
+
+**********For PAT*******************************
+Client-RT(config)#access-list 1 permit 192.168.1.0 0.0.0.255
+Client-RT(config)#ip nat inside source list 1 interface gigabitEthernet 0/0 overload
+*****************************************************************************
+
+Client-RT#clear ip nat translation *
