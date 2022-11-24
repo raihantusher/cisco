@@ -1,0 +1,45 @@
+Switch#
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 10
+Switch(config-vlan)#name hr
+Switch(config-vlan)#EXIT
+Switch(config)#vlan 20
+Switch(config-vlan)#name sales
+Switch(config-vlan)#exit
+Switch(config)#vlan 30
+Switch(config-vlan)#name mkt
+Switch(config)#interface fastEthernet 0/1
+Switch(config-if)#switchport mode access 
+Switch(config-if)#switchport access vlan 10
+Switch(config)#interface range fastEthernet 0/7-15
+Switch(config-if-range)#switchport mode access 
+Switch(config-if-range)#switchport access vlan 10
+Switch(config-if-range)#exit
+Switch(config)#interface fastEthernet 0/24
+Switch(config-if)#switchport mode trunk 
+Switch(config-if)#switchport trunk allowed vlan 10
+Switch(config-if)#switchport trunk allowed vlan add 20
+Switch(config-if)#switchport trunk allowed vlan add 30
+interface Vlan10
+ ip address 192.168.1.1 255.255.255.0
+!
+interface Vlan20
+ ip address 192.168.2.1 255.255.255.0
+!
+interface Vlan30
+ ip address 192.168.3.1 255.255.255.0
+!
+ip dhcp excluded-address 192.168.2.1
+!
+ip dhcp pool LAN-10
+ network 192.168.1.0 255.255.255.0
+ default-router 192.168.1.1
+ip dhcp pool LAN-20
+ network 192.168.2.0 255.255.255.0
+ default-router 192.168.2.1
+ip dhcp pool LAN-30
+ network 192.168.3.0 255.255.255.0
+ default-router 192.168.3.1
+
+sh mac address-table
