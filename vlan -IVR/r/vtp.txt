@@ -1,0 +1,28 @@
+Switch(config)#hostname SW-1
+SW-1(config)#vtp version 2
+SW-1(config)#vtp mode server 
+SW-1(config)#vtp domain csl.com
+SW-1(config)#vtp password csl
+SW-1(config)#interface fastEthernet 0/23
+SW-1(config-if)#switchport trunk encapsulation dot1q
+SW-1(config-if)#switchport mode trunk
+SW-1(config-if)#exit
+SW-1(config)#vlan 10
+SW-1(config)#name HR
+SW-1(config)#vlan 20
+SW-1(config)#name Sales
+SW-1(config)#interface fastEthernet 0/1
+SW-1(config-if)#switchport mode access 
+SW-1(config-if)#switchport access vlan 10
+SW-1(config-if)#interface fastEthernet 0/2
+SW-1(config-if)#switchport mode access 
+SW-1(config-if)#switchport access vlan 20
+SW-1(config-if)#interface fastEthernet 0/3
+SW-1(config-if)#switchport access vlan 30
+SW-1(config)#interface gigabitEthernet 0/1
+SW-1(config-if)#switchport trunk encapsulation dot1q 
+SW-1(config-if)#switchport mode trunk 
+SW-2(config)#interface fastEthernet 0/23
+SW-2(config-if)#switchport trunk allowed vlan all 
+SW-2(config-if)#interface fastEthernet 0/24
+SW-2(config-if)#switchport trunk allowed vlan all 
